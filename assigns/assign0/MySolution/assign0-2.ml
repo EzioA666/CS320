@@ -1,11 +1,7 @@
-let isPrime n0 =
-  if n0 <= 1 then false
-  else if n0 <= 3 then true
-  else if n0 mod 2 = 0 || n0 mod 3 = 0 then false
-  else
-    let rec test_divisor d =
-      if d * d > n0 then true
-      else if n0 mod d = 0 || n0 mod (d + 2) = 0 then false
-      else test_divisor (d + 6) (* 6k +/- 1 pattern *)
-    in
-    test_divisor 5 (* Starts testing from 5 *)
+    let isPrime n0 =
+      let rec check_divisor x d =
+          if d * d > x then true  (* If d exceeds sqrt(x), x is prime *)
+          else if x mod d = 0 then false  (* If x is divisible by d, it's not prime *)
+          else check_divisor x (d+1)  
+      in
+      n0 > 1 && check_divisor n0 2
